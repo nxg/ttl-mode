@@ -1,0 +1,25 @@
+This is an Emacs mode for editing Turtle (RDF) files.
+
+It is based on an excellent start made by Hugo Haas, at
+<http://larve.net/people/hugo/2003/scratchpad/NotationThreeEmacsMode.html>.
+I've extended it to support indentation, some electric punctuation,
+and hungry delete.
+
+To use, put the file in the emacs load path (look at the variable
+load-path to find where emacs currently searches), and add something
+like the following to your .emacs file.
+
+    (autoload 'ttl-mode "ttl-mode" "Major mode for OWL or Turtle files" t)
+    (add-hook 'ttl-mode-hook    ; Turn on font lock when in ttl mode
+              'turn-on-font-lock)
+    (setq auto-mode-alist
+          (append
+           (list
+            '("\\.n3" . ttl-mode)
+            '("\\.ttl" . ttl-mode))
+           auto-mode-alist))
+
+Comments and contributions most welcome.
+
+Norman Gray
+http://nxg.me.uk
