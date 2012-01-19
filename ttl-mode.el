@@ -32,18 +32,20 @@
   ;; keywords
   (list "this" "a")
   ;; additional font-lock'ing
-  '(("\\(@prefix\\)\\>" 1 font-lock-keyword-face t)
-    ("\\(\\S-*?:\\)" 1 font-lock-type-face t)
-    (":\\(\\S-+?\\)\\>" 1 font-lock-constant-face t)
-    ("\\(<.*?>\\)" 1 font-lock-function-name-face t)
-    ("\\(\\\".*?\\\"\\)" 1 font-lock-string-face t)
+  '(("\\(@prefix\\)\\>" 1 font-lock-keyword-face t)   ;keywords
+    ("\\^\\^[^,;.]+" 0 font-lock-preprocessor-face t) ;literal types
+    ("@[[:word:]_]+" 0 font-lock-preprocessor-face t) ;languages
+    ("\\(\\S-*?:\\)" 1 font-lock-type-face nil)       ;prefix
+    (":\\([[:word:]_-]+\\)\\>" 1 font-lock-constant-face nil) ;suffix
+    ("\\(<.*?>\\)" 1 font-lock-function-name-face t) ;resources
+    ("\\(\\\".*?\\\"\\)" 1 font-lock-string-face t)  ;strings
     ("\\(\\\"\\\"\\\".*?\\\"\\\"\\\"\\)" 1 font-lock-string-face t) ;doesn't work over newlines?
 ; Bug: some trailing characters are highlighted; restricting comments regexp
 ;    ("\\(#.*\\)" 1 font-lock-comment-face t)
-    ("^\\s-*\\(#.*\\)" 1 font-lock-comment-face t)
+    ("^\\s-*\\(#.*\\)" 1 font-lock-comment-face t) ;comment
     )
   ;; auto-mode
-  (list "\\.n3$")
+  (list "\\.n3$" "\\.ttl")
   ;; additional setup
   nil
   ;; description
