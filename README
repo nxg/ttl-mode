@@ -5,7 +5,8 @@ It is based on an excellent start made by Hugo Haas, at
 I've extended it to support indentation, some electric punctuation,
 and hungry delete.
 
-To use, put the file in the emacs load path (look at the variable
+To use, download the file ttl-mode.el from https://bitbucket.org/nxg/ttl-mode/src
+(or clone the project), put the file in the emacs load path (look at the variable
 load-path to find where emacs currently searches), and add something
 like the following to your .emacs file.
 
