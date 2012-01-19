@@ -4,9 +4,11 @@
 ;; Also draws on http://dishevelled.net/elisp/turtle-mode.el (which is for the _other_ turtle!)
 
 ;; Copyright (c) 2003-2007 Hugo Haas <hugo@larve.net>
-;; Extended by Norman Gray <http://nxg.me.uk>
+;; Extended 2011-2012, by Norman Gray <http://nxg.me.uk>
 ;;
 ;; See Hugo's commentary for original goals and further discussion.
+
+;; Project hosted at <https://bitbucket.org/nxg/ttl-mode>.  See there for updates.
 
 ;; To use:
 ;;
