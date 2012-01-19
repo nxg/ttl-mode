@@ -111,7 +111,7 @@ If nil, just insert a `\;'.  (To insert while t, do: \\[quoted-insert] \;)."
   (re-search-backward "^\\S-" (point-min) t))
 
 (defun ttl-in-string-p ()
-  "Are we inside a string or a long-string?"
+  "Is point inside a string or a long-string?"
   (save-excursion
     (let ((here (point))
           (in-p nil))
@@ -144,11 +144,17 @@ If nil, just insert a `\;'.  (To insert while t, do: \\[quoted-insert] \;)."
              (*ttl-search-in-line-for-comment limit)))))) ;recurse
 
 (defun ttl-in-comment-p ()
-  "Is (point) inside a comment?"
+  "Is point inside a comment?"
   (save-excursion
     (let ((here (point)))
       (beginning-of-line)
       (*ttl-search-in-line-for-comment here))))
+
+(defun ttl-in-resource-p ()
+  "Is point within a resource, marked by <...>?"
+  (save-excursion
+    (and (re-search-backward "[<> ]" nil t)
+         (looking-at "<"))))
 
 (defun ttl-skip-ws-backwards ()  ;adapted from cc-mode
   "Move backwards across whitespace."
@@ -168,6 +174,12 @@ or a single non-whitespace character if there is no whitespace before point."
         (delete-region (point) here)
       (backward-delete-char-untabify 1))))
 
+(defun ttl-insulate ()
+  "Return true if this location should not be electrified"
+  (or (ttl-in-string-p)
+      (ttl-in-comment-p)
+      (ttl-in-resource-p)))
+
 (defun ttl-electric-semi ()
   "Insert a \;.
 If variable `ttl-electric-semi-mode' is t, indent the current line, insert
@@ -175,7 +187,7 @@ a newline, and indent."
   (interactive)
   (insert "\;")
   (if (and ttl-electric-semi-mode
-           (not (or (ttl-in-string-p) (ttl-in-comment-p))))
+           (not (ttl-insulate)))
       (reindent-then-newline-and-indent)))
 
 (defun ttl-electric-dot ()
@@ -185,7 +197,7 @@ a newline, and indent."
   (interactive)
   (insert "\.")
   (if (and ttl-electric-semi-mode
-           (not (or (ttl-in-string-p) (ttl-in-comment-p))))
+           (not (ttl-insulate)))
       (reindent-then-newline-and-indent)))
 
 (defun ttl-mode-variables ()
