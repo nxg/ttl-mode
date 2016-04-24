@@ -92,17 +92,18 @@
 ;;   (indent-region (point)
 ;;                  (save-excursion (forward-xxx) (point))))
 
-(defvar ttl-mode-map (make-sparse-keymap))
+;;;###autoload
 (define-derived-mode ttl-mode ttl-base
   "Turtle RDF"
-  (setq indent-tabs-mode nil)
-  (ttl-mode-variables)
-;  (define-key ttl-mode-map (kbd "C-M-q")
-;    'turtle-indent-block)
-  (define-key ttl-mode-map (kbd "\;") 'ttl-electric-semi)
-  (define-key ttl-mode-map (kbd "\.") 'ttl-electric-dot)
-  (define-key ttl-mode-map [backspace] 'ttl-hungry-delete-backwards)
-  (use-local-map ttl-mode-map))
+  (set (make-local-variable 'indent-tabs-mode) nil)
+  (ttl-mode-variables))
+
+;; (define-key ttl-mode-map (kbd "C-M-q")
+;;   'turtle-indent-block)
+
+(define-key ttl-mode-map (kbd "\;") 'ttl-electric-semi)
+(define-key ttl-mode-map (kbd "\.") 'ttl-electric-dot)
+(define-key ttl-mode-map [backspace] 'ttl-hungry-delete-backwards)
 
 (defcustom ttl-electric-semi-mode t
   "*If non-nil, `\;' will self insert, reindent the line, and do a newline.
@@ -110,7 +111,7 @@ If nil, just insert a `\;'.  (To insert while t, do: \\[quoted-insert] \;)."
   :group 'ttl
   :type 'boolean)
 
-(defun beginning-of-stanza ()
+(defun ttl-beginning-of-stanza ()
   "Find the beginning of a stanza, indicated by non-whitespace at the beginning of a line."
   (re-search-backward "^\\S-" (point-min) t))
 
@@ -119,7 +120,7 @@ If nil, just insert a `\;'.  (To insert while t, do: \\[quoted-insert] \;)."
   (save-excursion
     (let ((here (point))
           (in-p nil))
-      (beginning-of-stanza)
+      (ttl-beginning-of-stanza)
       (condition-case nil
           (progn
             (while (<= (point) here)
@@ -206,3 +207,8 @@ a newline, and indent."
 
 (defun ttl-mode-variables ()
   (set (make-local-variable 'indent-line-function) 'ttl-indent-line))
+
+
+(provide 'ttl-mode)
+
+;;; ttl-mode.el ends here
