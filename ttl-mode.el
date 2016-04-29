@@ -1,7 +1,37 @@
 ;;; ttl-mode.el --- mode for Turtle (and Notation 3)
 
-;; Copyright (c) 2003-2007 Hugo Haas <hugo@larve.net>
-;; Extended 2011-2012, by Norman Gray <http://nxg.me.uk>
+;; ttl-mode.el is released under the terms of the two-clause BSD licence:
+;;
+;; Copyright 2003-2007, Hugo Haas <hugo@larve.net>
+;; Copyright 2011-2012, Norman Gray <https://nxg.me.uk>
+;; Copyright 2013, Daniel Gerber <https://bitbucket.org/dgerber/>
+;; All rights reserved.
+;;
+;; Redistribution and use in source and binary forms,
+;; with or without modification,
+;; are permitted provided that the following conditions are met:
+;;
+;; 1. Redistributions of source code must retain the above copyright
+;; notice, this list of conditions and the following disclaimer.
+;;
+;; 2. Redistributions in binary form must reproduce the above copyright
+;; notice, this list of conditions and the following disclaimer in the
+;; documentation and/or other materials provided with the distribution.
+;;
+;; THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+;; "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+;; LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+;; A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+;; HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+;; SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+;; LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+;; DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+;; THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+;; (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+;; OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+;;
+;;
+;;
 ;;
 ;; See Hugo's commentary for original goals and further discussion,
 ;; at http://larve.net/people/hugo/2003/scratchpad/NotationThreeEmacsMode.html
@@ -19,7 +49,7 @@
 ;; - indentation
 
 ;; To use:
-;; 
+;;
 ;; (autoload 'ttl-mode "ttl-mode")
 ;; (add-hook 'ttl-mode-hook 'turn-on-font-lock)
 ;; (add-to-list 'auto-mode-alist '("\\.\\(n3\\|ttl\\|trig\\)\\'" . ttl-mode))
@@ -59,7 +89,6 @@
   (define-key ttl-mode-map (kbd "\;") 'ttl-electric-semicolon)
   (define-key ttl-mode-map (kbd "\.") 'ttl-electric-dot)
   ;; (define-key ttl-mode-map [backspace] 'ttl-hungry-delete-backwards)
-  
   )
 
 
@@ -104,12 +133,11 @@
 		    (looking-back "\\,")) ; object list
 		  2 1)
 	      (nth 0 (syntax-ppss))	; levels in parens
-	      )))
-     )))
+	      ))))))
 
 (defun ttl-insulate ()
   "Return true if this location should not be electrified"
-  (or (not ttl-electric-punctuation) 
+  (or (not ttl-electric-punctuation)
       (let '(s (syntax-ppss))
 	(or (nth 3 s)
 	    (nth 4 s)
