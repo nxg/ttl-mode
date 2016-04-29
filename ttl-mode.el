@@ -5,6 +5,7 @@
 ;; Copyright 2003-2007, Hugo Haas <hugo@larve.net>
 ;; Copyright 2011-2012, Norman Gray <https://nxg.me.uk>
 ;; Copyright 2013, Daniel Gerber <https://bitbucket.org/dgerber/>
+;; Copyright 2016, Peter Vasil <https://bitbucket.org/ptrv/>
 ;; All rights reserved.
 ;;
 ;; Redistribution and use in source and binary forms,
@@ -59,6 +60,7 @@
 
 (provide 'ttl-mode)
 
+;;;###autoload
 (define-derived-mode ttl-mode prog-mode "N3/Turtle mode"
   "Major mode for Turtle RDF documents."
 
@@ -88,8 +90,7 @@
   ;; (define-key ttl-mode-map (kbd "\,") 'ttl-electric-comma)
   (define-key ttl-mode-map (kbd "\;") 'ttl-electric-semicolon)
   (define-key ttl-mode-map (kbd "\.") 'ttl-electric-dot)
-  ;; (define-key ttl-mode-map [backspace] 'ttl-hungry-delete-backwards)
-  )
+  (define-key ttl-mode-map [backspace] 'ttl-hungry-delete-backwards))
 
 
 (defgroup ttl nil "Customization for ttl-mode")
@@ -169,3 +170,5 @@
     (if (not (looking-back " ")) (insert " "))
     (insert ".")
     (reindent-then-newline-and-indent)))
+
+;;; ttl-mode.el ends here
