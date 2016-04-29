@@ -58,39 +58,36 @@
 ;;; Code:
 
 
-(provide 'ttl-mode)
-
 ;;;###autoload
 (define-derived-mode ttl-mode prog-mode "N3/Turtle mode"
   "Major mode for Turtle RDF documents."
 
   ;; Comments syntax
-  (make-local-variable 'comment-start)
-  (setq comment-start "# ")
+  (set (make-local-variable 'comment-start) "# ")
   (modify-syntax-entry ?# "< b" ttl-mode-syntax-table)
   (modify-syntax-entry ?\n "> b" ttl-mode-syntax-table)
 
   ;; fontification
   (setq font-lock-defaults
-	`((,(regexp-opt '("@prefix" "@base" "a") 'symbols)  ;keywords
-	   ("\\^\\^[^,;.]+" 0 font-lock-preprocessor-face t) ;literal types
-	   ("@[[:word:]_]+" . font-lock-preprocessor-face) ;languages
-	   ("\\S-*?:" . font-lock-type-face)       ;prefix
-	   (":\\([[:word:]_-]+\\)\\>" 1 font-lock-constant-face nil) ;suffix
-	   ("<.*?>" 0 font-lock-function-name-face t) ;resources
-	   ("[,;.]" 0 font-lock-keyword-face) ;punctuation
-	   ("^\\s-*\\(#.*\\)" 1 font-lock-comment-face t) ;comment
-	   ) nil))
+        `((,(regexp-opt '("@prefix" "@base" "a") 'symbols)  ;keywords
+           ("\\^\\^[^,;.]+" 0 font-lock-preprocessor-face t) ;literal types
+           ("@[[:word:]_]+" . font-lock-preprocessor-face) ;languages
+           ("\\S-*?:" . font-lock-type-face)       ;prefix
+           (":\\([[:word:]_-]+\\)\\>" 1 font-lock-constant-face nil) ;suffix
+           ("<.*?>" 0 font-lock-function-name-face t) ;resources
+           ("[,;.]" 0 font-lock-keyword-face) ;punctuation
+           ("^\\s-*\\(#.*\\)" 1 font-lock-comment-face t) ;comment
+           ) nil))
 
   ;; indentation
   (set (make-local-variable 'indent-line-function) 'ttl-indent-line)
-  (setq indent-tabs-mode nil)
+  (set (make-local-variable 'indent-tabs-mode) nil))
 
-  ;; electric punctuation
-  ;; (define-key ttl-mode-map (kbd "\,") 'ttl-electric-comma)
-  (define-key ttl-mode-map (kbd "\;") 'ttl-electric-semicolon)
-  (define-key ttl-mode-map (kbd "\.") 'ttl-electric-dot)
-  (define-key ttl-mode-map [backspace] 'ttl-hungry-delete-backwards))
+;; electric punctuation
+;; (define-key ttl-mode-map (kbd "\,") 'ttl-electric-comma)
+(define-key ttl-mode-map (kbd "\;") 'ttl-electric-semicolon)
+(define-key ttl-mode-map (kbd "\.") 'ttl-electric-dot)
+(define-key ttl-mode-map [backspace] 'ttl-hungry-delete-backwards)
 
 
 (defgroup ttl nil "Customization for ttl-mode")
@@ -124,25 +121,25 @@
           (looking-at "#")         ; @base
           (save-excursion          ; a subject
             (while (forward-comment -1))
-	    (or (looking-back "\\.")
-		(back-to-indentation) (looking-at "@"))) ; after prolog
+            (or (looking-back "\\.")
+                (back-to-indentation) (looking-at "@"))) ; after prolog
           ) 0)
      ;; inside blank nodes
      (t (* ttl-indent-level
-	   (+ (if (save-excursion
-		    (while (forward-comment -1))
-		    (looking-back "\\,")) ; object list
-		  2 1)
-	      (nth 0 (syntax-ppss))	; levels in parens
-	      ))))))
+           (+ (if (save-excursion
+                    (while (forward-comment -1))
+                    (looking-back "\\,")) ; object list
+                  2 1)
+              (nth 0 (syntax-ppss))	; levels in parens
+              ))))))
 
 (defun ttl-insulate ()
   "Return true if this location should not be electrified"
   (or (not ttl-electric-punctuation)
       (let '(s (syntax-ppss))
-	(or (nth 3 s)
-	    (nth 4 s)
-	    (ttl-in-resource-p)))))
+        (or (nth 3 s)
+            (nth 4 s)
+            (ttl-in-resource-p)))))
 
 (defun ttl-in-resource-p ()
   "Is point within a resource, marked by <...>?"
@@ -171,4 +168,5 @@
     (insert ".")
     (reindent-then-newline-and-indent)))
 
+(provide 'ttl-mode)
 ;;; ttl-mode.el ends here
