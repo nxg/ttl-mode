@@ -168,5 +168,23 @@
     (insert ".")
     (reindent-then-newline-and-indent)))
 
+(defun ttl-skip-ws-backwards ()  ;adapted from cc-mode
+  "Move backwards across whitespace."
+  (while (progn
+           (skip-chars-backward " \t\n\r\f\v")
+           (and (eolp)
+                (eq (char-before) ?\\)))
+    (backward-char)))
+
+(defun ttl-hungry-delete-backwards ()
+  "Delete backwards, either all of the preceding whitespace,
+or a single non-whitespace character if there is no whitespace before point."
+  (interactive)
+  (let ((here (point)))
+    (ttl-skip-ws-backwards)
+    (if (/= (point) here)
+        (delete-region (point) here)
+      (backward-delete-char-untabify 1))))
+
 (provide 'ttl-mode)
 ;;; ttl-mode.el ends here
