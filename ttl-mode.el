@@ -2,10 +2,10 @@
 
 ;; ttl-mode.el is released under the terms of the two-clause BSD licence:
 ;;
-;; Copyright 2003-2007, Hugo Haas <hugo@larve.net>
+;; Copyright 2003-2007, Hugo Haas <http://www.hugoh.net>
 ;; Copyright 2011-2012, Norman Gray <https://nxg.me.uk>
-;; Copyright 2013, Daniel Gerber <https://bitbucket.org/dgerber/>
-;; Copyright 2016, Peter Vasil <https://bitbucket.org/ptrv/>
+;; Copyright 2013, Daniel Gerber <https://danielgerber.net>
+;; Copyright 2016, Peter Vasil <http://petervasil.net>
 ;; All rights reserved.
 ;;
 ;; Redistribution and use in source and binary forms,
