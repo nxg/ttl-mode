@@ -4,7 +4,7 @@ It is based on an excellent start made by Hugo Haas.
 I've extended it to support indentation, some electric punctuation,
 and hungry delete.
 
-To use, download the file `ttl-mode.el` from [Bitbucket](https://bitbucket.org/nxg/ttl-mode)
+To use, download the file `ttl-mode.el` from [Github](https://github.com/nxg/ttl-mode)
 (or clone the project), put the file in the emacs load path (look at the variable
 load-path to find where emacs currently searches), and add something
 like the following to your `.emacs` file.
