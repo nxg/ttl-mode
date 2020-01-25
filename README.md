@@ -1,5 +1,9 @@
 This is an Emacs mode for editing Turtle (RDF) files.
 
+**Note**: I'm no longer actively developing this.  I'm willing to
+accept pull requests; and if someone wants to take over the code, I'd
+probably take little persuading to agree.
+
 It is based on an excellent start made by Hugo Haas.
 I've extended it to support indentation, some electric punctuation,
 and hungry delete.
