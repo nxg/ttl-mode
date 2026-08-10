@@ -1,8 +1,12 @@
 This is an Emacs mode for editing Turtle (RDF) files.
 
-**Note**: I'm no longer actively developing this.  I'm willing to
-accept pull requests; and if someone wants to take over the code, I'd
-probably take little persuading to agree.
+**Note**: I'm no longer working on this project.
+Development has been taken over by @jeeger,
+and [their repository should be regarded as
+the new upstream](https://github.com/jeeger/ttl-mode).
+Thanks, Jeeger – happy coding!
+
+----
 
 It is based on an excellent start made by Hugo Haas.
 I've extended it to support indentation, some electric punctuation,
